@@ -1,18 +1,17 @@
-== Missions Bridge
+h1. Missions Bridge
 
 Missions Bridge is a place where you can connect with other people and organizations involved in missions work around the world.
 
-First, tell us where you've been. Build up your own list of places you know and care about. Tell us about churches, organizations and other worthwhile causes active in those places. If you're a missionary in the field, you can build up a page of information about yourself and your experiences for your supporters to see. If you're interested in missions, you can start researching who's working and what's going on in those places.
+First, *tell us where you've been.* Build up your own list of places you know and care about. Tell us about churches, organizations and other worthwhile causes active in those places. If you're a missionary in the field, you can build up a page of information about yourself and your experiences for your supporters to see. If you're interested in missions, you can start researching who's working and what's going on in those places.
 
-Second, invite your friends and contacts to join. You can keep tabs on what's going on where they are, and we can use those relationships and connections to help you find contacts and causes that you may find interesting. You might be surprised to see how far-reaching your own network is!
+Second, *invite your friends and contacts* to join. You can keep tabs on what's going on where they are, and we can use those relationships and connections to help you find contacts and causes that you may find interesting. You might be surprised to see how far-reaching your own network is!
 
-If you represent a non-profit organization, we'd love to help provide you with some tools to get the word out about your organization's work.
+*If you represent a non-profit organization,* we'd love to help provide you with some tools to get the word out about your organization's work.
 
-If you are leading a team, we'd love to help you find and recruit exactly the right people to join you.
+*If you are leading a team,* we'd love to help you find and recruit exactly the right people to join you.
 
-If you are a web developer with a heart for equipping the world-wide body of Christ, we'd love to put you to work! Our project is a labor of love, an open-source project backed by a non-profit organization. If you've got ideas, feel free to fork the code and try them out.
+*If you are a web developer* with a heart for equipping the world-wide body of Christ, we'd love to put you to work! Our project is a labor of love, an open-source project backed by a non-profit organization. If you've got ideas, feel free to fork the code and try them out.
 
-=== Contact
+h2. Contact
 
-This project is maintained by Nick Zadrozny of Beautiful Feet International. You can reach him at nick@beautifulfeetintl.org.
-
+This project is maintained by Nick Zadrozny and backed by Beautiful Feet International. You can reach him at "nick@beautifulfeetintl.org":mailto:nick@beautifulfeetintl.org.
