@@ -1,0 +1,48 @@
+<section>
+
+  <header>
+    <h1>Places</h1>
+    
+    <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
+      <h2>Where have you been?</h2>
+      <%= text_field_tag :name %>
+      <%= place_form.submit 'Search' %>
+    <% end %>
+  </header>
+  
+  <ul class="places">
+    <li class="place">
+      <a href="/places/us/ca/san-diego">
+        <span class="name">San Diego</span>,
+        <span class="parent">California</span>
+      </a>
+    </li>
+    <li class="place">
+      <a href="/places/us/ca/ramona">
+        <span class="name">Ramona</span>,
+        <span class="parent">California</span>
+      </a>
+    </li>
+    <li class="place">
+      <a href="/places/us/wa/silverdale">
+        <span class="name">Silverdale</span>,
+        <span class="parent">Washington</span>
+      </a>
+    </li>
+    <li class="place">
+      <a href="/places/us/wa/seattle">
+        <span class="name">Seattle</span>,
+        <span class="parent">Washington</span>
+      </a>
+    </li>
+  </ul>
+  
+  <footer>
+    <h3>
+      Can't find the place you're looking for?
+      <button><%= link_to 'Create a new place', new_place_path %></button>
+    </h3>
+    
+  </footer>
+  
+</section>
