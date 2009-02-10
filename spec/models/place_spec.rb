@@ -9,6 +9,16 @@ describe Place do
     @place.save!
   end
   
+  it "should search Yahoo with a search string" do
+    Place.should_receive(:open).and_return(mock("mock io", :read => "test json output"))
+    Place.yahoo_search("test").should == "test json output"
+  end
+  
+  it "should find Yahoo Place JSON from a WOEID" do
+    Place.should_receive(:open).and_return(mock("mock io", :read => "test json output"))
+    Place.yahoo_place(12345).should == "test json output"
+  end
+  
 protected
   
   def place_json
