@@ -4,6 +4,7 @@ class PlacesController < ApplicationController
   end
   
   def search
+    @results = Place.search_yahoo(params[:q]) unless params[:q].blank?
     render :template => 'places/index'
   end
   

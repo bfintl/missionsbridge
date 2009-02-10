@@ -5,37 +5,25 @@
     
     <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
       <h2>Where have you been?</h2>
-      <%= text_field_tag :name %>
+      <%= text_field_tag :q, params[:q] %>
       <%= place_form.submit 'Search' %>
     <% end %>
   </header>
   
   <ul class="places">
-    <li class="place">
-      <a href="/places/us/ca/san-diego">
-        <span class="name">San Diego</span>,
-        <span class="parent">California</span>
-      </a>
-    </li>
-    <li class="place">
-      <a href="/places/us/ca/ramona">
-        <span class="name">Ramona</span>,
-        <span class="parent">California</span>
-      </a>
-    </li>
-    <li class="place">
-      <a href="/places/us/wa/silverdale">
-        <span class="name">Silverdale</span>,
-        <span class="parent">Washington</span>
-      </a>
-    </li>
-    <li class="place">
-      <a href="/places/us/wa/seattle">
-        <span class="name">Seattle</span>,
-        <span class="parent">Washington</span>
-      </a>
-    </li>
+    <% @results['places']['place'].each do |place| %>
+      <li class="place">
+        <% link_to "/places/#{place['admin1 attrs']['code'].downcase.gsub('-','/')}/#{place['name'].downcase.gsub(/ /,'-')}/#{place['woeid']}" do %>
+          <span class="name"><%= place['name'] %></span>,
+          <span class="admin1"><%= place['admin1'] %></span>
+        <% end %>
+      </li>
+    <% end unless @results.blank? || @results['places'].blank? || @results['places']['place'].blank? %>
   </ul>
+  
+  <pre><%=h @results.to_json %></pre>
+  
+  
   
   <footer>
     <h3>
