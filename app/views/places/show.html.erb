@@ -1,4 +1,15 @@
+<header>
+  <h2>
+    <%=h @place_json['name'] %>,
+    <small><%=h [@place_json['admin2'], @place_json['admin1']].join(', ') %></small>
+  </h2>
+</header>
+
+
 <pre><%= params[:permalink].inspect %></pre>
 
 <code><%=h @place_json.to_json %></code>
 
+<h2></h2>
+
+<%= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %>

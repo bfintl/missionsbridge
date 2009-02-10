@@ -8,7 +8,7 @@ class Place < ActiveRecord::Base
   
   def self.yahoo_place(woeid='')
     search_url = %(http://where.yahooapis.com/v1/place/#{woeid}?format=json&appid=#{YAHOO['appid']||''})
-    ActiveSupport::JSON.decode(open(search_url).read)
+    ActiveSupport::JSON.decode(open(search_url).read)['place']
   end
   
 end
