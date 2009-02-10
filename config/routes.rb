@@ -4,7 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   # Core resources
   ##
   map.resources :places, :collection => { :search => [:get,:post] }
-  map.connect '/places/*permalink', :controller => 'places', :action => 'show'
+  map.connect '/places/*permalink/:woeid', :controller => 'places', :action => 'show', :woeid => /[0-9]+/
+  map.connect '/places/*q', :controller => 'places', :action => 'search'
 
   ###
   # Authentication

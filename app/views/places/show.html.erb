@@ -1,15 +1,16 @@
-<header>
-  <h2>
-    <%=h @place_json['name'] %>,
-    <small><%=h [@place_json['admin2'], @place_json['admin1']].join(', ') %></small>
-  </h2>
-</header>
+<section>
+
+  <header>
+    <h2>
+      <%=h [@place_json['name'], @place_json['admin1'], @place_json['country']].reject{|x|x.blank?}.uniq.join(', ') %>
+    </h2>
+  </header>
+
+  <aside>
+    <pre><%= params[:permalink].inspect %></pre>
+    <p><code><%=h @place_json.to_json %></code></p>
+    <p><%= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %></p>
+  </aside>
 
 
-<pre><%= params[:permalink].inspect %></pre>
-
-<code><%=h @place_json.to_json %></code>
-
-<h2></h2>
-
-<%= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %>
+</section>

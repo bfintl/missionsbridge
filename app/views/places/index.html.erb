@@ -13,7 +13,7 @@
   <ul class="places">
     <% @results['places']['place'].each do |place| %>
       <li class="place">
-        <% link_to "/places/#{place['admin1 attrs']['code'].downcase.gsub('-','/')}/#{place['name'].downcase.gsub(/ /,'-')}/#{place['woeid']}" do %>
+        <% link_to "/places/#{[place['country'], place['admin1'], place['admin2'], place['admin3'], place['name'], place['woeid']].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')}" do %>
           <span class="name"><%= place['name'] %></span>,
           <span class="admin1"><%= place['admin1'] %></span>
         <% end %>
