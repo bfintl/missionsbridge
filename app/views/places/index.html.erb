@@ -10,27 +10,29 @@
     <% end %>
   </header>
   
-  <ul class="places">
-    <% @results['places']['place'].each do |place| %>
-      <li class="place">
-        <% link_to "/places/#{[place['country'], place['admin1'], place['admin2'], place['admin3'], place['name'], place['woeid']].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')}" do %>
-          <span class="name"><%= place['name'] %></span>,
-          <span class="admin1"><%= place['admin1'] %></span>
-        <% end %>
-      </li>
-    <% end unless @results.blank? || @results['places'].blank? || @results['places']['place'].blank? %>
-  </ul>
+  <div id="results">
+
+    <ul class="places">
+      <% @results['places']['place'].each do |place| %>
+        <li class="place">
+          <% link_to "/places/#{[place['country'], place['admin1'], place['admin2'], place['admin3'], place['name'], place['woeid']].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')}" do %>
+            <span class="name"><%= place['name'] %></span>,
+            <span class="admin1"><%= place['admin1'] %></span>
+          <% end %>
+        </li>
+      <% end unless @results.blank? || @results['places'].blank? || @results['places']['place'].blank? %>
+    </ul>
+
+    <p><small><code><%=h @results.to_json %></code></small></p>
+    <% content_for(:footer) do %>
+      <%= javascript_include_tag 'places' if @results.blank? %>
+    <% end %>
+  </div>
+
   
-  <pre><%=h @results.to_json %></pre>
   
-  
-  
+
   <footer>
-    <h3>
-      Can't find the place you're looking for?
-      <button><%= link_to 'Create a new place', new_place_path %></button>
-    </h3>
-    
   </footer>
   
 </section>
