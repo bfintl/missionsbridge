@@ -5,7 +5,7 @@
     
     <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
       <h2>Where have you been?</h2>
-      <%= text_field_tag :q, params[:q] %>
+      <%= text_field_tag :q, params[:q], :id => 'search', :autocomplete => "off" %>
       <%= place_form.submit 'Search' %>
     <% end %>
   </header>
@@ -25,7 +25,10 @@
 
     <p><small><code><%=h @results.to_json %></code></small></p>
     <% content_for(:footer) do %>
-      <%= javascript_include_tag 'places' if @results.blank? %>
+      <% if @results.blank? %>
+        <%= javascript_include_tag 'places' if @results.blank? %>
+        <%= jquery_ready '$("#search").searchPlaces()' %>
+      <% end %>
     <% end %>
   </div>
 
