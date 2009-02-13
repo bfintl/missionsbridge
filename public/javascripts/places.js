@@ -13,8 +13,10 @@
 			var searchUrl = "/places/search?q=" + searchQuery;
 			
 			$.getJSON(searchUrl, function(data) {
+				// $("#results").html("<code>" + data + "</code>");
 				$("#results").html("<ul class='places'></ul>");
-			  $.each(data.places.place, function(i, place) {
+			  $.each(data, function(i, item) {
+					var place = item.place;
 			    var placeName = "<span class='name'>" + place.name + "</span>";
 			    var placeAdmin1 = "<span class='admin1'>" + place.admin1 + "</span>";
 			    var placeLink = "<a href='/places/" + place.woeid + "'>" + placeName + ", " + placeAdmin1 + "</a>";

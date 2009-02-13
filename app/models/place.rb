@@ -3,6 +3,8 @@ class Place < ActiveRecord::Base
   
   validates_presence_of :woeid
   
+  before_create :generate_permalink
+  
   def self.yahoo_search(query='')
     search_url = %(http://where.yahooapis.com/v1/places.q('#{CGI::escape(query||"")}');count=0?format=json&appid=#{YAHOO['appid']||''})
     json = ActiveSupport::JSON.decode(open(search_url).read)
@@ -28,7 +30,15 @@ class Place < ActiveRecord::Base
     end
   end
   
+  def to_param
+    permalink
+  end
+  
 protected
+
+  def generate_permalink
+    self.permalink = [country, admin1, admin2, admin3, name, woeid].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')
+  end
   
   def bounding_box=(bounding_box)
     bounding_box_northeast_lat = bounding_box['north_east']['latitude']

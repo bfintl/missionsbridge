@@ -16,18 +16,18 @@
       <% @places.each do |place| %>
         <li class="place">
           <% # TODO: create a permalink for all places out of the following code %>
-          <% link_to "/places/#{[place.country, place.admin1, place.admin2, place.admin3, place.name, place.woeid].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')}" do %>
+          <% link_to "/places/#{place.to_param}" do %>
             <span class="name"><%= place.name %></span>,
             <span class="admin1"><%= place.admin1 %></span>
           <% end %>
         </li>
-      <% end %>
+      <% end unless @places.blank? %>
     </ul>
 
     <p><small><code><%=h @results.to_json %></code></small></p>
     <% content_for(:footer) do %>
       <% if @places.blank? %>
-        <%= javascript_include_tag 'places' if @places.blank? %>
+        <%= javascript_include_tag 'places' %>
         <%= jquery_ready '$("#search").searchPlaces()' %>
       <% end %>
     <% end %>

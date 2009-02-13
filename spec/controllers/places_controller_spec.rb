@@ -1,6 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PlacesController do
+  
+  before(:all) do
+    Place.stub!(:yahoo_search).and_return(mock_places)
+    Place.stub!(:yahoo_place).and_return(mock_place)
+  end
 
   describe "index" do
     def get_index
@@ -29,6 +34,16 @@ describe PlacesController do
       get_show
       response.should be_success
     end
+  end
+
+protected
+
+  def mock_place
+    @mock_place ||= mock_model(Place)
+  end
+  
+  def mock_places
+    @mock_places ||= [mock_place]
   end
 
 end

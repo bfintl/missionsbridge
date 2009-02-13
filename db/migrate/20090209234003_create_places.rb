@@ -3,6 +3,18 @@ class CreatePlaces < ActiveRecord::Migration
     create_table :places do |t|
 
       t.string :name
+      t.string :permalink
+      
+      t.integer :woeid
+      
+      t.string :country, :country_code, :country_type
+
+      t.string :admin1, :admin1_code, :admin1_type
+      t.string :admin2, :admin2_code, :admin2_type
+      t.string :admin3, :admin3_code, :admin3_type
+      
+      t.string :locality1, :locality1_type
+      t.string :locality2, :locality2_type
       
       t.with_options :precision => 15, :scale => 10 do |c|
         c.decimal :bounding_box_northeast_lat
@@ -13,21 +25,11 @@ class CreatePlaces < ActiveRecord::Migration
         c.decimal :centroid_lon
       end
       
-      t.string :admin1, :admin1_code, :admin1_type
-      t.string :admin2, :admin2_code, :admin2_type
-      t.string :admin3, :admin3_code, :admin3_type
-      
-      t.string :country, :country_code, :country_type
-      t.string :locality1, :locality1_type
-      t.string :locality2, :locality2_type
-      
       t.string :lang
-      
+      t.string :place_type_name
       t.string :postal, :postal_type
       t.string :uri
-      t.string :place_type_name
       
-      t.integer :woeid
       t.timestamps
     end
   end
