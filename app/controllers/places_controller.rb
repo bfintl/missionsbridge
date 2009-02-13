@@ -6,18 +6,13 @@ class PlacesController < ApplicationController
   def search
     unless params[:q].blank?
       query = params[:q].is_a?(Array) ? params[:q].join(" ").gsub(/-/, " ") : params[:q]
-      @results = Place.yahoo_search(query)
+      @places = Place.yahoo_search(query)
     end
     respond_to do |format|
       format.html do
-        if @results && @results['places'] && @results['places']['place'].size == 1
-          place = @results['places']['place'].first
-          redirect_to place_url(place)
-        else
-          render :template => 'places/index'
-        end
+        render_or_redirect_search
       end
-      format.js   { render :json => @results.to_json }
+      format.js   { render :json => @places.to_json }
     end
   end
   
@@ -37,6 +32,15 @@ class PlacesController < ApplicationController
   end
 
 protected
+
+
+  def render_or_redirect_search
+    if @places && @places.size == 1
+      redirect_to @places.first
+    else
+      render :template => 'places/index'
+    end
+  end
 
   def place_url(place_json)
     place = [ place_json['country'], place_json['admin1'], place_json['admin2'], place_json['admin3'],

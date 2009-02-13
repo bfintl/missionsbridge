@@ -9,7 +9,7 @@
   <aside>
     <pre><%= params[:permalink].inspect %></pre>
     <p><code><%=h @place_json.to_json %></code></p>
-    <p><%= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %></p>
+    <p><%#= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %></p>
   </aside>
 
 
