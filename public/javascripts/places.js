@@ -1,7 +1,3 @@
-
-
-
-
 (function($){
 	$.fn.searchPlaces = function() {
 		
@@ -38,5 +34,5 @@
 		});
 		
 		return this;
-	};  
+	};
 })(jQuery);

@@ -23,7 +23,7 @@ describe PlacesController do
   
   describe "show" do
     def get_show
-      get :show
+      get :show, :woeid => 12345
     end
     it "should respond successfully" do
       get_show

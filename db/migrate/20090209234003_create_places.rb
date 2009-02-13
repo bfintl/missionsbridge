@@ -1,7 +1,8 @@
 class CreatePlaces < ActiveRecord::Migration
   def self.up
     create_table :places do |t|
-      t.string :name, :permalink
+      t.string :name, :admin1
+      t.integer :woeid
       t.timestamps
     end
   end
