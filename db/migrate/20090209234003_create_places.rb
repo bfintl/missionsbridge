@@ -4,6 +4,8 @@ class CreatePlaces < ActiveRecord::Migration
 
       t.string :name
       t.string :permalink
+      t.string :long_name
+      t.string :parent_names
       
       t.integer :woeid
       

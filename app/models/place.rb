@@ -6,7 +6,7 @@ class Place < ActiveRecord::Base
   before_create :generate_permalink
   
   def self.yahoo_search(query='')
-    search_url = %(http://where.yahooapis.com/v1/places.q('#{CGI::escape(query||"")}');count=0?format=json&appid=#{YAHOO['appid']||''})
+    search_url = %(http://where.yahooapis.com/v1/places.q('#{CGI::escape(query||"")}');count=5?format=json&appid=#{YAHOO['appid']||''})
     json = ActiveSupport::JSON.decode(open(search_url).read)
     json['places']['place'].collect do |place_json|
       Place.find_or_create_from_json(place_json)
@@ -32,6 +32,14 @@ class Place < ActiveRecord::Base
   
   def to_param
     permalink
+  end
+  
+  def long_name
+    [ name, admin3, admin2, admin1, country ].reject{|x|x.blank?}.uniq.join(', ')
+  end
+  
+  def parent_names
+    [ admin3, admin2, admin1, country ].reject{|x|x.blank?}.uniq.join(', ')
   end
   
 protected

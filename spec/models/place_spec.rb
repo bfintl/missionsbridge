@@ -66,6 +66,9 @@ describe Place do
     it "should use the permalink for to_param" do
       @place.to_param.should == @place.permalink
     end
+    it "should have a long name" do
+      @place.long_name.should_not be_blank
+    end
     # further tests seem to be redundant at this point. they can be added as functionality really needs to be cemented.
   end
 

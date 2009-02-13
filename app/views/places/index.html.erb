@@ -3,37 +3,66 @@
   <header>
     <h1>Places</h1>
     
+  </header>
+
+  <section>
     <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
-      <h2>Where have you been?</h2>
-      <%= text_field_tag :q, params[:q], :id => 'search', :autocomplete => "off" %>
+      <h2>Where are you now?</h2>
+      <%= text_field_tag :q, params[:q], :id => 'where_are_you_now_search', :autocomplete => "off" %>
       <%= place_form.submit 'Search' %>
     <% end %>
-  </header>
-  
-  <div id="results">
 
-    <ul class="places">
-      <% @places.each do |place| %>
-        <li class="place">
-          <% # TODO: create a permalink for all places out of the following code %>
-          <% link_to "/places/#{place.to_param}" do %>
-            <span class="name"><%= place.name %></span>,
-            <span class="admin1"><%= place.admin1 %></span>
-          <% end %>
-        </li>
-      <% end unless @places.blank? %>
-    </ul>
 
-    <p><small><code><%=h @results.to_json %></code></small></p>
-    <% content_for(:footer) do %>
-      <% if @places.blank? %>
+    <div id="where_are_you_now_results">
+
+      <ul class="places">
+        <% @places.each do |place| %>
+          <li class="place">
+            <% # TODO: create a permalink for all places out of the following code %>
+            <% link_to "/places/#{place.to_param}" do %>
+              <span class="name"><%= place.name %></span>,
+              <span class="admin1"><%= place.admin1 %></span>
+            <% end %>
+          </li>
+        <% end unless @places.blank? %>
+      </ul>
+
+      <p><small><code><%=h @results.to_json %></code></small></p>
+      <% content_for(:footer) do %>
         <%= javascript_include_tag 'places' %>
-        <%= jquery_ready '$("#search").searchPlaces()' %>
+        <%= jquery_ready '$("#where_are_you_now_search").searchPlaces()' %>
       <% end %>
-    <% end %>
-  </div>
-
-  <footer>
-  </footer>
+    </div>
+  </section>
   
+  <section>
+    <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
+      <h2>Where have you been?</h2>
+      <%= text_field_tag :q, params[:q], :id => 'where_have_you_been_search', :autocomplete => "off" %>
+      <%= place_form.submit 'Search' %>
+    <% end %>
+    
+    <div id="where_have_you_been_results">
+
+      <ul class="places">
+        <% @places.each do |place| %>
+          <li class="place">
+            <% # TODO: create a permalink for all places out of the following code %>
+            <% link_to "/places/#{place.to_param}" do %>
+              <span class="name"><%= place.name %></span>,
+              <span class="admin1"><%= place.admin1 %></span>
+            <% end %>
+          </li>
+        <% end unless @places.blank? %>
+      </ul>
+
+      <p><small><code><%=h @results.to_json %></code></small></p>
+      <% content_for(:footer) do %>
+        <%= javascript_include_tag 'places' %>
+        <%= jquery_ready '$("#where_have_you_been_search").searchPlaces()' %>
+      <% end %>
+    </div>
+  </section>
+  
+
 </section>
