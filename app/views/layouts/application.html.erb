@@ -8,7 +8,16 @@
   </head>
   <body>
     <header>
-      <h1><%= link_to 'Missions Bridge', '/' %></h1>
+      <h1>
+        <strong><%= link_to 'Missions Bridge', '/' %></strong>
+        knows <strong><%= link_to "123 people", '#' %></strong>
+        in <strong><%= link_to pluralize(Place.count, "place"), '#' %></strong> and counting&hellip;
+      </h1>
+      <h2>
+        <strong><%= link_to "You", '#' %></strong>
+        know <strong><%= link_to "12 people", '#' %></strong>
+        in <strong><%= link_to "34 places", '#' %></strong>&hellip;
+      </h2>
       <nav></nav>
     </header>
     <article>

@@ -1,8 +1,6 @@
 <section>
 
   <header>
-    <h1>Places</h1>
-    
   </header>
 
   <section>
@@ -27,7 +25,7 @@
     </div>
   </section>
   
-  <section>
+  <!-- <section>
     <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
       <h2>Where have you been?</h2>
       <%= text_field_tag :q, params[:q], :id => 'where_have_you_been_search', :autocomplete => "off" %>
@@ -47,12 +45,12 @@
         <% end unless @places.blank? %>
       </ul>
     </div>
-  </section>
+  </section> -->
 
 </section>
 
 <% content_for(:footer) do %>
   <%= javascript_include_tag 'places' %>
   <%= jquery_ready '$("#where_are_you_now_search").searchPlaces()' %>
-  <%= jquery_ready '$("#where_have_you_been_search").searchPlaces()' %>
+  <%#= jquery_ready '$("#where_have_you_been_search").searchPlaces()' %>
 <% end %>
