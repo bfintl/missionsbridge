@@ -3,7 +3,8 @@
   <header>
     <h2>
       <span style="height:1em;width:20px;background:#<%= @place.color %>">&nbsp;</span>
-      <%=h @place.long_name %>
+      <%=h @place.name %>,
+      <small><%=h @place.parent_names %></small>
     </h2>
     <p><small>
       [
