@@ -37,13 +37,13 @@
     <div id="where_have_you_been_results">
       <ul class="places">
         <% @places.each do |place| %>
-          <li class="place">
-            <% # TODO: create a permalink for all places out of the following code %>
-            <% link_to "/places/#{place.to_param}" do %>
-              <span class="name"><%= place.name %></span>,
-              <span class="admin1"><%= place.admin1 %></span>
-            <% end %>
-          </li>
+        <li class="place">
+          <% # TODO: create a permalink for all places out of the following code %>
+          <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
+          <% link_to "/places/#{place.to_param}" do %>
+            <span class="long_name"><%= place.long_name %></span>
+          <% end %>
+        </li>
         <% end unless @places.blank? %>
       </ul>
     </div>
