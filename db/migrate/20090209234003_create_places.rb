@@ -6,6 +6,7 @@ class CreatePlaces < ActiveRecord::Migration
       t.string :permalink
       t.string :long_name
       t.string :parent_names
+      t.string :color, :limit => 6
       
       t.integer :woeid
       

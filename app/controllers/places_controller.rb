@@ -5,8 +5,8 @@ class PlacesController < ApplicationController
   
   def search
     unless params[:q].blank?
-      query = params[:q].is_a?(Array) ? params[:q].join(" ").gsub(/-/, " ") : params[:q]
-      @places = Place.yahoo_search(query)
+      params[:q] = params[:q].is_a?(Array) ? params[:q].reverse.join(", ").gsub(/-/, " ") : params[:q]
+      @places = Place.yahoo_search(params[:q])
     end
     respond_to do |format|
       format.html do

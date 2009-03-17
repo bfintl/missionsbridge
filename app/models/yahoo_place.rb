@@ -3,6 +3,9 @@ module YahooPlace
 
   def self.included(base)
     base.validates_presence_of :woeid
+    base.before_create :generate_color
+    base.before_create :generate_long_name
+    base.before_create :generate_parent_names
     base.before_create :generate_permalink
     base.extend ClassMethods
   end
@@ -36,6 +39,21 @@ module YahooPlace
 
   end
   
+  def generate_permalink
+    self.permalink = [country, admin1, admin2, admin3, name, woeid].reject{|x|x.blank?}.uniq.join('/').gsub(/ /,'-')
+  end
+  
+  def generate_long_name
+    self.long_name = [ name, admin3, admin2, admin1, country ].reject{|x|x.blank?}.uniq.join(', ')
+  end
+  
+  def generate_parent_names
+    self.parent_names = [ admin3, admin2, admin1, country ].reject{|x|x.blank?}.uniq.join(', ')
+  end
+  
+  def generate_color
+    self.color = Digest::MD5.hexdigest(name)[0,6]
+  end
   
   def bounding_box=(bounding_box)
     self.bounding_box_northeast_lat = bounding_box['north_east']['latitude']

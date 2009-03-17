@@ -18,8 +18,9 @@
 			  $.each(data, function(i, item) {
 					var place = item.place;
 			    var placeName = "<span class='name'>" + place.long_name + "</span>";
+					var placeColor = "<span style='background:#" + place.color + "'>&nbsp;</span>";
 			    var placeLink = "<a href='/places/" + place.permalink + "'>" +  placeName + "</a>";
-					var placeLi = "<li class='place'>" + placeLink + "</li>";
+					var placeLi = "<li class='place'>" + placeColor + " " + placeLink + "</li>";
 			    $(placeLi).appendTo(placesList);
 			  });
 				resultsField.html(placesList);
