@@ -18,7 +18,7 @@
 			  $.each(data, function(i, item) {
 					var place = item.place;
 			    var placeName = "<span class='name'>" + place.long_name + "</span>";
-			    var placeLink = "<a href='/places/" + place.permalink + "'>" + placeName + "</a>";
+			    var placeLink = "<a href='/places/" + place.permalink + "'>" +  placeName + "</a>";
 					var placeLi = "<li class='place'>" + placeLink + "</li>";
 			    $(placeLi).appendTo(placesList);
 			  });

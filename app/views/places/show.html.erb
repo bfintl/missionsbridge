@@ -2,15 +2,27 @@
 
   <header>
     <h2>
-      <%=h [@place_json['name'], @place_json['admin1'], @place_json['country']].reject{|x|x.blank?}.uniq.join(', ') %>
+      <span style="height:1em;width:20px;background:<%= @place.color %>">&nbsp;</span>
+      <%=h @place.long_name %>
     </h2>
+    <p><small>
+      [
+      <%= link_to "I've been here", '#' %> &bull;
+      <%= link_to "I'm from here", '#' %> &bull;
+      <%= link_to "I'm here now", '#' %> &bull;
+      <%= link_to "I want to go here", '#' %> &bull;
+      <%= link_to "I have contacts here", '#' %>
+      ]
+    </small></p>
   </header>
 
   <aside>
-    <pre><%= params[:permalink].inspect %></pre>
-    <p><code><%=h @place_json.to_json %></code></p>
-    <p><%#= link_to "Nearby photos on Flickr", "http://flickr.com/nearby/#{@place_json['centroid']['latitude']},#{@place_json['centroid']['longitude']}?by=everyone&taken=alltime&sort=interestingness" %></p>
+    <p><%= link_to "Nearby photos on Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
   </aside>
+
+<p><small><pre>
+<%= @place.to_yaml %>
+</pre></small></p>
 
 
 </section>

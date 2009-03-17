@@ -17,18 +17,12 @@ class PlacesController < ApplicationController
   end
   
   def show
-    @place_json = Place.yahoo_place(params[:woeid] || params[:id])
-    unless params[:woeid]
-      redirect_to place_url(@place_json)
+    if params[:woeid]
+      @place = Place.find_by_woeid(params[:woeid]) || Place.yahoo_place(params[:woeid])
+    else
+      @place = Place.yahoo_place(params[:id])
+      redirect_to place_url(@place)
     end
-    
-    # Place.find_by_permalink(params[:permalink])
-    # if params[:permalink]
-    #   Place.find_by_permalink(params[:permalink])
-    # else
-    #   Place.find(params[:id])
-    # end
-    # @place = params[:permalink] ? Place.find_by_permalink(params[:permalink]) : Place.find(params[:id])
   end
 
 protected
