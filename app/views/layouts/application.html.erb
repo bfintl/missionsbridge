@@ -15,9 +15,9 @@
         in <strong><%= link_to pluralize(Place.count, "place"), places_path %></strong> and counting&hellip;
       </h1>
       <h2>
-        <strong><%= link_to "You", '#' %></strong>
-        know <strong><%= link_to pluralize(0, "person"), '#' %></strong>
-        in <strong><%= link_to pluralize(0, "place"), '#' %></strong>&hellip;
+        <strong><%= link_to "You", current_person ? person_path(current_person) : new_person_path %></strong>
+        know <strong><%= link_to pluralize(0, "person"), people_path %></strong>
+        in <strong><%= link_to pluralize(0, "place"), places_path %></strong>&hellip;
       </h2>
       <nav></nav>
     </header>
