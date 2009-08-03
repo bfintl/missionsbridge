@@ -1,0 +1,37 @@
+<% form_for @person do |f| %>
+
+  <div>
+    <%= f.label :login %>
+    <%= f.error_message_on :login %>
+  </div>
+  <div>
+    <%= f.text_field :login %>
+  </div>
+  
+  <div>
+    <%= f.label :email %>
+    <%= f.error_message_on :email %>
+  </div>
+  <div>
+    <%= f.text_field :email %>
+  </div>
+  
+  <div>
+    <%= f.label :password %>
+    <%= f.error_message_on :password %>
+  </div>
+  <div>
+    <%= f.password_field :password %>
+  </div>
+  
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.error_message_on :password_confirmation %>
+  </div>
+  <div>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  
+  <div><%= submit_tag "Sign up" %></div>
+  
+<% end %>

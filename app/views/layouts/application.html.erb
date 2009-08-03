@@ -10,13 +10,14 @@
     <header>
       <h1>
         <strong><%= link_to 'Missions Bridge', '/' %></strong>
-        knows <strong><%= link_to "123 people", '#' %></strong>
-        in <strong><%= link_to pluralize(Place.count, "place"), '#' %></strong> and counting&hellip;
+        knows <strong><%= link_to pluralize(Person.count, "person"), people_path %></strong>
+        and <strong><%= link_to pluralize(0, "organization"), '#' %></strong>
+        in <strong><%= link_to pluralize(Place.count, "place"), places_path %></strong> and counting&hellip;
       </h1>
       <h2>
         <strong><%= link_to "You", '#' %></strong>
-        know <strong><%= link_to "12 people", '#' %></strong>
-        in <strong><%= link_to "34 places", '#' %></strong>&hellip;
+        know <strong><%= link_to pluralize(0, "person"), '#' %></strong>
+        in <strong><%= link_to pluralize(0, "place"), '#' %></strong>&hellip;
       </h2>
       <nav></nav>
     </header>
