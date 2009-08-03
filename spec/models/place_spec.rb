@@ -2,16 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Place do
 
-  before(:all) do
+  before(:each) do
     Place.stub!(:open).with(nil)
+    @place = Place.new(
+      :woeid => 12345,
+      :place_type => mock_place_type
+    )
   end
   
-  before(:each) do
-    @place = Place.new({
-      :woeid => 12345
-    })
-  end
-
   it "should be valid" do
     @place.save!
   end
@@ -42,6 +40,11 @@ describe Place do
     @place.woeid = nil
     @place.should_not be_valid
   end
+  
+  it "should create its place type from Yahoo! placeTypeName code" do
+    PlaceType.should_receive(:find_or_create_by_code)
+    @place.place_type_name_attrs = { :code => 1 }
+  end
 
 end
 
@@ -71,7 +74,11 @@ describe Place do
     end
     # further tests seem to be redundant at this point. they can be added as functionality really needs to be cemented.
   end
+  
+end
 
+def mock_place_type
+  @mock_place_type ||= mock_model(PlaceType)
 end
 
 def places_json
@@ -175,4 +182,5 @@ def places_json_parsed
     {"boundingBox"=>{"northEast"=>{"latitude"=>19.86034, "longitude"=>-97.354462}, "southWest"=>{"latitude"=>19.847481, "longitude"=>-97.368118}}, "postal"=>"738", 
     "name"=>"San Diego", "uri"=>"http://where.yahooapis.com/v1/place/55907788", "placeTypeName"=>"Suburb", "woeid"=>55907788, "postal attrs"=>{"type"=>"Postal Code"}, "country attrs"=>{"code"=>"MX", "type"=>"Country"}, "placeTypeName attrs"=>{"code"=>22}, "centroid"=>{"latitude"=>19.85391, "longitude"=>-97.36129}, "admin1 attrs"=>{"code"=>"", "type"=>"State"}, "country"=>"Mexico", "locality1 attrs"=>{"type"=>"Town"}, "locality2 attrs"=>{"type"=>"Suburb"}, "admin1"=>"Puebla", "lang"=>"en-US", "locality1"=>"Teziutl\\u00e1n", "admin2"=>"Teziutlan", "locality2"=>"San Diego", "admin3"=>"", "admin2 attrs"=>{"code"=>"", "type"=>"Municipality"}}
   ], "total"=>37, "start"=>0, "count"=>37}}
+
 end

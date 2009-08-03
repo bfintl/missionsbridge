@@ -2,6 +2,7 @@ require 'open-uri'
 module YahooPlace
 
   def self.included(base)
+    base.belongs_to :place_type
     base.validates_presence_of :woeid
     base.before_create :generate_color
     base.before_create :generate_long_name
@@ -52,7 +53,7 @@ module YahooPlace
   end
   
   def generate_color
-    self.color = Digest::MD5.hexdigest(name)[0,6]
+    self.color = Digest::MD5.hexdigest(name)[0,6] unless name.blank?
   end
   
   def bounding_box=(bounding_box)
@@ -68,7 +69,7 @@ module YahooPlace
   end
   
   def place_type_name_attrs=(place_type_name_attrs)
-    # Ignore for now. TODO: self.place_type = PlaceType.find_by_code(place_type_name_attrs['code'])
+    self.place_type = PlaceType.find_or_create_by_code(:code => place_type_name_attrs['code'], :name => place_type_name)
   end
   
   def admin1_attrs=(admin1_attrs)
