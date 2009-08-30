@@ -1,29 +1,27 @@
-<section>
+<article class="row">
 
   <header>
   </header>
 
-  <section>
-    <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
-      <h2>Where are you now?</h2>
-      <%= text_field_tag :q, params[:q], :id => 'where_are_you_now_search', :autocomplete => "off" %>
-      <%= place_form.submit 'Search' %>
-    <% end %>
+  <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
+    <h2>Find a place</h2>
+    <%= text_field_tag :q, params[:q], :id => 'where_are_you_now_search', :autocomplete => "off" %>
+    <%= place_form.submit 'Search' %>
+  <% end %>
 
-    <div id="where_are_you_now_results">
-      <ul class="places">
-        <% @places.each do |place| %>
-          <li class="place">
-            <% # TODO: create a permalink for all places out of the following code %>
-            <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
-            <% link_to "/places/#{place.to_param}" do %>
-              <span class="long_name"><%= place.long_name %></span>
-            <% end %>
-          </li>
-        <% end unless @places.blank? %>
-      </ul>
-    </div>
-  </section>
+  <div id="where_are_you_now_results">
+    <ul class="places">
+      <% @places.each do |place| %>
+        <li class="place">
+          <% # TODO: create a permalink for all places out of the following code %>
+          <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
+          <% link_to "/places/#{place.to_param}" do %>
+            <span class="long_name"><%= place.long_name %></span>
+          <% end %>
+        </li>
+      <% end unless @places.blank? %>
+    </ul>
+  </div>
   
   <!-- <section>
     <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
@@ -47,7 +45,7 @@
     </div>
   </section> -->
 
-</section>
+</article>
 
 <% content_for(:footer) do %>
   <%= javascript_include_tag 'places' %>
