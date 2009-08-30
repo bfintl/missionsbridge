@@ -1,29 +1,48 @@
-<section>
+<% content_tag_for :article, @place do %>
 
-  <header>
-    <h2>
-      <span style="height:1em;width:20px;background:#<%= @place.color %>">&nbsp;</span>
+  <header class="row">
+    <h2 class="column grid_6">
+      <span class="color_stamp" style="background:#<%= @place.color %>">&nbsp;</span>
       <%=h @place.name %>,
       <small><%=h @place.parent_names %></small>
     </h2>
-    <p><small>
-      [
-      <%= link_to "I've been here", '#' %> &bull;
-      <%= link_to "I'm from here", '#' %> &bull;
-      <%= link_to "I'm here now", '#' %> &bull;
-      <%= link_to "I want to go here", '#' %> &bull;
-      <%= link_to "I have contacts here", '#' %>
-      ]
-    </small></p>
+    <div class="column grid_2">
+      <button><%= link_to "I've been here", '#' %></button>
+    </div>
+    <div class="column grid_2">
+      <button><%= link_to "I have contacts here", '#' %></button>
+    </div>
+    <div class="column grid_2">
+      <button><%= link_to "I want to go here", '#' %></button>
+    </div>
   </header>
 
+  <section class="row">
+    <div class="column grid_4">
+      <h3>Recent news about <%=h @place.name %>&hellip;</h3>
+      <p>Something interesting -- an activity feed about people and orgs?</p>
+    </div>
+    <div class="column grid_4">
+      <p>
+        We know
+        <strong><%= link_to pluralize(123, "person"), '#' %></strong> and
+        <strong><%= link_to pluralize(25, "organization"), '#' %></strong>.
+      </p>
+      <p>
+        <%= link_to 'Sign up', new_person_path %> or
+        <%= link_to 'log in', new_person_session_path %> to build your network and find contacts here.
+      </p>
+    </div>
+    <div class="column grid_4">
+      <div class="image_or_map" style="height:300px; background:#eee; margin:1%">big image or map</div>
+      <p><%= link_to "Nearby photos on Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
+    </div>
+  </section>
+
   <aside>
-    <p><%= link_to "Nearby photos on Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
   </aside>
 
-<p><small><pre>
-<%= @place.to_yaml %>
-</pre></small></p>
-
-
-</section>
+  <!-- <p><small><pre>
+  <%= @place.to_yaml %>
+  </pre></small></p> -->
+<% end %>
