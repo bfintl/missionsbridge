@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
 
   config.gem 'json'
   config.gem 'binarylogic-authlogic', :lib => 'authlogic', :source => 'http://gems.github.com'
+  config.gem 'ym4r'
 
   config.time_zone = 'UTC'
 

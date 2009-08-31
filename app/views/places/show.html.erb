@@ -23,10 +23,14 @@
       <% end %>
     </div>
     <div class="column grid_4">
-      <div class="image_or_map" style="height:300px; background:#eee; margin:1%">big image or map</div>
+      <div class="image_or_map" style="height:300px; background:url(<%= @place.get_flickr_photos.rand %>); margin:1%">big image or map</div>
       <p><%= link_to "Nearby photos on Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
     </div>
   </section>
+  
+  <!-- <section class="row">
+    <%= @place.get_flickr_photos.collect { |img| image_tag img } %>
+  </section> -->
 
   <aside>
   </aside>
