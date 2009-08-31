@@ -1,5 +1,8 @@
 class PlacesController < ApplicationController
   
+  before_filter :require_person, :only => :connect
+  before_filter :find_place, :only => [ :show, :connect ]
+  
   def index
   end
   
@@ -17,16 +20,24 @@ class PlacesController < ApplicationController
   end
   
   def show
-    if params[:woeid]
-      @place = Place.find_by_woeid(params[:woeid]) || Place.yahoo_place(params[:woeid])
-    else
-      @place = Place.yahoo_place(params[:id])
-      redirect_to place_url(@place)
-    end
+    place
   end
-
+  
+  def connect
+    @place_connection = current_person.person_place_connections.find_or_create_by_place_id(place.id)
+    @place_connection.update_attributes(params[:place_connection])
+    redirect_to place || :back
+  end
+  
 protected
 
+  def place
+    @place ||= Place.find_by_woeid(params[:id])
+  end
+
+  def find_place
+    @place = Place.find_by_woeid(params[:id])
+  end
 
   def render_or_redirect_search
     if @places && @places.size == 1

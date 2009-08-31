@@ -1,20 +1,7 @@
 <% content_tag_for :article, @place do %>
 
   <header class="row">
-    <h2 class="column grid_6">
-      <span class="color_stamp" style="background:#<%= @place.color %>">&nbsp;</span>
-      <%=h @place.name %>,
-      <small><%=h @place.parent_names %></small>
-    </h2>
-    <div class="column grid_2">
-      <button><%= link_to "I've been here", '#' %></button>
-    </div>
-    <div class="column grid_2">
-      <button><%= link_to "I have contacts here", '#' %></button>
-    </div>
-    <div class="column grid_2">
-      <button><%= link_to "I want to go here", '#' %></button>
-    </div>
+    <%= render :partial => 'header' %>
   </header>
 
   <section class="row">
@@ -28,10 +15,12 @@
         <strong><%= link_to pluralize(123, "person"), '#' %></strong> and
         <strong><%= link_to pluralize(25, "organization"), '#' %></strong>.
       </p>
-      <p>
-        <%= link_to 'Sign up', new_person_path %> or
-        <%= link_to 'log in', new_person_session_path %> to build your network and find contacts here.
-      </p>
+      <% unless logged_in? %>
+        <p>
+          <%= link_to 'Sign up', signup_path %> or
+          <%= link_to 'log in', login_path %> to build your network and find contacts here.
+        </p>
+      <% end %>
     </div>
     <div class="column grid_4">
       <div class="image_or_map" style="height:300px; background:#eee; margin:1%">big image or map</div>

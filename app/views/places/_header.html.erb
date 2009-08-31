@@ -1,0 +1,26 @@
+<h2 class="column grid_6">
+  <span class="color_stamp" style="background:#<%= @place.color %>">&nbsp;</span>
+  <%=h @place.name %>,
+  <small><%=h @place.parent_names %></small>
+</h2>
+<div class="column grid_2">
+  <% if current_person.been_to?(@place) %>
+    <div>I've been here!</div>
+  <% else %>
+    <button><%= link_to "I've been here", connect_place_path(:place_connection => { :been_to => true }), :method => :post %></button>
+  <% end %>
+</div>
+<div class="column grid_2">
+  <% if current_person.contacts_in?(@place) %>
+    <div>I have contacts here!</div>
+  <% else %>
+    <button><%= link_to "I have contacts here", connect_place_path(:place_connection => { :has_contacts => true }), :method => :post %></button>
+  <% end %>
+</div>
+<div class="column grid_2">
+  <% if current_person.wants_to_go_to?(@place) %>
+    <div>I want to go here!</div>
+  <% else %>
+    <button><%= link_to "I want to go here", connect_place_path(:place_connection => { :want_to_go => true }), :method => :post %></button>
+  <% end %>
+</div>

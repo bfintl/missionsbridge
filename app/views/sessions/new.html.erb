@@ -1,14 +1,14 @@
-<% form_tag session_path do -%>
-<p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
+<h1>Login</h1>
 
-<p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
-
-<!-- Uncomment this if you want this functionality
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
--->
-
-<p><%= submit_tag 'Log in' %></p>
-<% end -%>
+<% form_for @person_session, :url => session_path do |f| %>
+  <%= f.error_messages %>
+  <%= f.label :login %><br />
+  <%= f.text_field :login %><br />
+  <br />
+  <%= f.label :password %><br />
+  <%= f.password_field :password %><br />
+  <br />
+  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
+  <br />
+  <%= f.submit "Login" %>
+<% end %>

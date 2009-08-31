@@ -12,38 +12,16 @@
   <div id="where_are_you_now_results">
     <ul class="places">
       <% @places.each do |place| %>
-        <li class="place">
+        <% content_tag_for :li, place do %>
           <% # TODO: create a permalink for all places out of the following code %>
           <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
           <% link_to "/places/#{place.to_param}" do %>
             <span class="long_name"><%= place.long_name %></span>
           <% end %>
-        </li>
+        <% end %>
       <% end unless @places.blank? %>
     </ul>
   </div>
-  
-  <!-- <section>
-    <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
-      <h2>Where have you been?</h2>
-      <%= text_field_tag :q, params[:q], :id => 'where_have_you_been_search', :autocomplete => "off" %>
-      <%= place_form.submit 'Search' %>
-    <% end %>
-    
-    <div id="where_have_you_been_results">
-      <ul class="places">
-        <% @places.each do |place| %>
-        <li class="place">
-          <% # TODO: create a permalink for all places out of the following code %>
-          <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
-          <% link_to "/places/#{place.to_param}" do %>
-            <span class="long_name"><%= place.long_name %></span>
-          <% end %>
-        </li>
-        <% end unless @places.blank? %>
-      </ul>
-    </div>
-  </section> -->
 
 </article>
 
