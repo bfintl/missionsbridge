@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     @person_session = PersonSession.new(params[:person_session])
     if @person_session.save
       flash[:notice] = "Login successful!"
-      redirect_back_or_default person_path
+      redirect_back_or_default root_path
     else
       render :action => :new
     end
@@ -22,4 +22,5 @@ class SessionsController < ApplicationController
     flash[:notice] = "Logout successful!"
     redirect_back_or_default root_path
   end
+
 end
