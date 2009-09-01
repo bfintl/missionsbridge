@@ -7,6 +7,7 @@
     var timeout = null;
     var timeoutDelay = 400;
     var throttledDelay = 1000;
+    var throttleFactor = 1.5;
 
     var updatePlacesList = function(data) {
       var placesList = $("<ul class='places'></ul>");
@@ -31,8 +32,8 @@
         if (data.length > 0) {
           throttledDelay = 1000;
           updatePlacesList(data);
-        } else if (throttledDelay < 3000) {
-          throttledDelay = throttledDelay * 1.5;
+        } else if (throttledDelay * throttleFactor < 3000) {
+          throttledDelay = throttledDelay * throttleFactor;
           triggerSearch(throttledDelay);
         } else {
           throttledDelay = 1000;
