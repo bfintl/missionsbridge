@@ -49,7 +49,7 @@ module YahooPlace
   end
   
   def generate_parent_names
-    self.parent_names = [ admin3, admin2, admin1, country ].reject{|x|x.blank?}.uniq.join(', ')
+    self.parent_names = [ admin3, admin2, admin1, country ].reject{|x|x.blank? || x == name}.uniq.join(', ')
   end
   
   def generate_color

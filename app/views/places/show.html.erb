@@ -5,11 +5,11 @@
   </header>
 
   <section class="row">
-    <div class="column grid_4">
-      <h3>Recent news about <%=h @place.name %>&hellip;</h3>
-      <p>Something interesting -- an activity feed about people and orgs?</p>
+    <div class="column grid_3">
+      <h3>Recently from <%=h @place.name %>&hellip;</h3>
+      <p>Something interesting&mdash;an activity feed about people and orgs?</p>
     </div>
-    <div class="column grid_4">
+    <div class="column grid_3">
       <p>
         We know
         <strong><%= link_to pluralize(123, "person"), '#' %></strong> and
@@ -22,16 +22,20 @@
         </p>
       <% end %>
     </div>
-    <div class="column grid_4">
-      <div class="image_or_map" style="height:300px; background:url(<%= @place.get_flickr_photos.rand %>); margin:1%">big image or map</div>
-      <p><%= link_to "Nearby photos on Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
+    <div class="column grid_5">
+      <div class="image_or_map">
+        <% photo = @place.get_flickr_photos.first %>
+        <% if photo %>
+          <div><%= link_to image_tag(photo[:src]), photo[:href], :alt => photo[:title] %></div>
+          <div>
+            &ldquo;<%= link_to (photo[:title]||"Untitled"), photo[:href] %>&rdquo;
+            from <%= link_to "Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </section>
   
-  <!-- <section class="row">
-    <%= @place.get_flickr_photos.collect { |img| image_tag img } %>
-  </section> -->
-
   <aside>
   </aside>
 
