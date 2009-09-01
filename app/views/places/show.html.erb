@@ -1,3 +1,4 @@
+<% t [@place.name, (@place.admin1 == @place.name ? @place.country : @place.admin1)].join(", ") %>
 <% content_tag_for :article, @place do %>
 
   <header class="row">

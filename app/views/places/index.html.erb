@@ -13,8 +13,7 @@
     <ul class="places">
       <% @places.each do |place| %>
         <% content_tag_for :li, place do %>
-          <% # TODO: create a permalink for all places out of the following code %>
-          <span style="background:#<%= place.color %>">&nbsp;&nbsp;</span>
+          <span style="background:#<%= place.color %>">&nbsp;</span>
           <% link_to "/places/#{place.to_param}" do %>
             <span class="long_name"><%= place.long_name %></span>
           <% end %>
