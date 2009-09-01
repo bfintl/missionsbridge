@@ -29,6 +29,7 @@ class PlacesController < ApplicationController
   def connect
     @place_connection = current_person.person_place_connections.find_or_create_by_place_id(place.id)
     @place_connection.update_attributes(params[:place_connection])
+    current_person.send_later :update_place_connection_hierarchy_for, place, params[:place_connection]
     redirect_to place || :back
   end
   

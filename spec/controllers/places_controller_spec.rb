@@ -79,7 +79,8 @@ protected
   def mock_person
     @mock_person ||= mock_model(Person,
       :places => mock_places_proxy,
-      :person_place_connections => mock_person_place_connections_proxy
+      :person_place_connections => mock_person_place_connections_proxy,
+      :send_later => nil
     )
   end
   
