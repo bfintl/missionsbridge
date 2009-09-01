@@ -24,12 +24,13 @@
     </div>
     <div class="column grid_5">
       <div class="image_or_map">
-        <% photo = @place.get_flickr_photos.first %>
+        <% photo = @place.flickr_photos.first %>
         <% if photo %>
           <div><%= link_to image_tag(photo[:src]), photo[:href], :alt => photo[:title] %></div>
           <div>
-            &ldquo;<%= link_to (photo[:title]||"Untitled"), photo[:href] %>&rdquo;
-            from <%= link_to "Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %>
+            <p>&ldquo;<%= link_to (photo[:title]||"Untitled"), photo[:href] %>&rdquo;
+            from <%= link_to "Flickr", "http://www.flickr.com/places/#{@place.woeid}?by=everyone&taken=alltime&sort=interestingness" %></p>
+            <p><%= link_to 'View and vote on other photos.', place_flickr_photos_path(@place.woeid) %></p>
           </div>
         <% end %>
       </div>

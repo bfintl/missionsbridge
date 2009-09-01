@@ -7,7 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   # Places
   map.resources :places,
     :collection => { :search => [:get,:post] },
-    :member => { :connect => :post }
+    :member => { :connect => :post } do |place|
+    place.resources :flickr_photos
+  end
 
   # Extra stuff for searching and showing places
   map.connect '/places/*permalink/:id', :controller => 'places', :action => 'show', :id => /[0-9]+/
