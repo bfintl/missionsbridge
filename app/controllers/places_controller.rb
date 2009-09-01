@@ -11,8 +11,8 @@ class PlacesController < ApplicationController
       params[:q] = params[:q].is_a?(Array) ? params[:q].reverse.join(", ").gsub(/-/, " ") : params[:q]
       query = " #{params[:q]} ".downcase.gsub(/[^a-z]+/,'%')
       logger.info "QUERY: #{query}"
-      @places = Place.find(:all, :conditions => ["name LIKE ? OR long_name LIKE ?", query, query], :limit => 10)
-      Place.send_later :yahoo_search, params[:q]
+      # @places = Place.find(:all, :conditions => ["name LIKE ? OR long_name LIKE ?", query, query], :limit => 10)
+      @places = Place.yahoo_search(params[:q])
     end
     respond_to do |format|
       format.html do

@@ -24,6 +24,17 @@ describe FlickrPhoto do
     end
   end
   
+  it "should return a sensible hash from parsing Flickr's XML" do
+    FlickrPhoto.attributes_from_xml(mock_xml_doc.elements["//photo"].attributes).should == {
+      :flickr_id => "489388602",
+      :owner => "72772620@N00",
+      :title => "Hike to Bedford Peak",
+      :url_m => "http://farm1.static.flickr.com/210/489388602_585d9379d2.jpg",
+      :height_m => "500",
+      :width_m => "375"
+    }
+  end
+  
 protected
 
   def mock_place

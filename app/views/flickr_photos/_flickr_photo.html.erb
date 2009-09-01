@@ -1,0 +1,6 @@
+<% content_tag_for :li, flickr_photo, :class => 'column grid_4', :style => 'height:540px' do %>
+  Rated <%= flickr_photo.rating || 0 %> &mdash;
+  <%= link_to 'Increase', '#' %>, 
+  <%= link_to 'Decrease', '#' %>
+  <%= image_tag flickr_photo.url_m %>
+<% end %>

@@ -3,7 +3,7 @@ require 'digest/md5'
 class Place < ActiveRecord::Base
   include YahooPlace
   
-  has_many :flickr_photos, :conditions => "rating > 0", :order => "rating desc"
+  has_many :flickr_photos
   after_create :get_flickr_photos
   
   has_many :person_place_connections
@@ -19,10 +19,11 @@ class Place < ActiveRecord::Base
     require 'rexml/document'
     xml = open(%(http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=#{YAHOO['flickr_key']}&license=4%2C5%2C6%2C7&safe_search=true&woe_id=#{woeid}&extras=url_m&sort=interestingness-desc))
     doc = REXML::Document.new(xml)
-    doc.elements.each('//photo') do |photo|
-      photo_attributes = {:place_id => self.id}.merge(FlickrPhoto.attributes_from_xml(photo_element.attributes))
+    doc.elements.collect('//photo') do |photo_element|
+      photo_attributes = { :place_id => self.id }.merge(FlickrPhoto.attributes_from_xml(photo_element.attributes))
       FlickrPhoto.find_or_create_by_flickr_id_and_place_id(photo_attributes)
     end
+    sleep(0.5)
   end
 
   handle_asynchronously :get_flickr_photos
