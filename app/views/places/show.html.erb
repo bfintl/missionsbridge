@@ -12,7 +12,7 @@
     <div class="column grid_3">
       <p>
         We know
-        <strong><%= link_to pluralize(123, "person"), '#' %></strong> and
+        <strong><%= pluralize(@place.people.count, "person") %></strong> and
         <strong><%= link_to pluralize(25, "organization"), '#' %></strong>.
       </p>
       <% unless logged_in? %>

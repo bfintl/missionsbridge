@@ -6,6 +6,9 @@ class Place < ActiveRecord::Base
   has_many :flickr_photos, :conditions => "rating > 0", :order => "rating desc"
   after_create :get_flickr_photos
   
+  has_many :person_place_connections
+  has_many :people, :through => :person_place_connections
+  
   def to_param
     permalink
   end
