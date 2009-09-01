@@ -23,7 +23,6 @@ class Place < ActiveRecord::Base
       photo_attributes = { :place_id => self.id }.merge(FlickrPhoto.attributes_from_xml(photo_element.attributes))
       FlickrPhoto.find_or_create_by_flickr_id_and_place_id(photo_attributes)
     end
-    sleep(0.5)
   end
 
   handle_asynchronously :get_flickr_photos
