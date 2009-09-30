@@ -1,7 +1,6 @@
 <h2 class="column grid_6">
   <span class="color_stamp" style="background:#<%= @place.color %>">&nbsp;</span>
-  <%=h @place.name %>,
-  <small><%=h @place.parent_names.gsub(/#{@place.name}, /, '') %></small>
+  <%= [h(@place.name),  @place.parent_names.blank? ? nil : content_tag(:small, h(@place.parent_names.gsub(/#{@place.name}, /, '')))].compact.join(", ") %>
 </h2>
 <div class="column grid_2">
   <% if current_person && current_person.been_to?(@place) %>

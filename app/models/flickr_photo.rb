@@ -1,6 +1,11 @@
 class FlickrPhoto < ActiveRecord::Base
+
   belongs_to :place
   validates_presence_of :place
+  
+  named_scope :unreviewed,  { :conditions => { :rating => nil },  :order => 'created_at DESC',  :limit => 10 }
+  named_scope :rejected,    { :conditions => [ 'rating < 0' ],    :order => 'updated_at DESC',  :limit => 10 }
+  named_scope :approved,    { :conditions => [ 'rating > 0' ],    :order => 'rating DESC' }
   
   def self.attributes_from_xml(photo_attributes)
     returning Hash.new do |attributes|

@@ -25,7 +25,7 @@
     </div>
     <div class="column grid_5">
       <div class="image_or_map">
-        <% photo = @place.flickr_photos.first %>
+        <% photo = @place.flickr_photos.approved.first %>
         <% if photo %>
           <div><%= link_to image_tag(photo.url_m), photo.href, :alt => photo.title %></div>
           <div>

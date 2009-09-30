@@ -1,6 +1,12 @@
 <% content_tag_for :li, flickr_photo, :class => 'column grid_4', :style => 'height:540px' do %>
-  Rated <%= flickr_photo.rating || 0 %> &mdash;
-  <%= link_to 'Increase', '#' %>, 
-  <%= link_to 'Decrease', '#' %>
-  <%= image_tag flickr_photo.url_m %>
+  <p>
+    <q><%= flickr_photo.title %></q><br/>
+    <%= link_to flickr_photo.place.long_name, place_path(flickr_photo.place.woeid) %>
+  </p>
+  <p>
+    Rated <%= flickr_photo.rating || 0 %> &mdash;
+    <%= link_to 'Increase', flickr_photo_path(flickr_photo, :flickr_photo => { :rating => (flickr_photo.rating||0) + 1}), :method => :put %>, 
+    <%= link_to 'Decrease', flickr_photo_path(flickr_photo, :flickr_photo => { :rating => (flickr_photo.rating||0) - 1}), :method => :put %>
+  </p>
+  <%= image_tag flickr_photo.url_m unless flickr_photo.url_m.blank? %>
 <% end %>

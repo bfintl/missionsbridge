@@ -10,6 +10,9 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :connect => :post } do |place|
     place.resources :flickr_photos
   end
+  
+  # Flickr photos
+  map.resources :flickr_photos
 
   # Extra stuff for searching and showing places
   map.connect '/places/*permalink/:id', :controller => 'places', :action => 'show', :id => /[0-9]+/
