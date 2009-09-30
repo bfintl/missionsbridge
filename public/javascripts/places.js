@@ -1,4 +1,5 @@
 (function($){
+
   $.fn.searchPlaces = function() {
 
     var searchField = this;
@@ -10,13 +11,15 @@
     var throttleFactor = 1.5;
 
     var updatePlacesList = function(data) {
+      window.console.log("Updating place list...");
       var placesList = $("<ul class='places'></ul>");
       $.each(data, function(i, item) {
         var place = item.place;
         var placeName = "<span class='name'>" + place.long_name + "</span>";
-        var placeColor = "<span style='background:#" + place.color + "'>&nbsp;</span>";
+        var placeColor = "<span style='background-color:#" + place.color + "'>&nbsp;</span>";
         var placeLink = "<a href='/places/" + place.permalink + "'>" +  placeName + "</a>";
-        var placeLi = "<li class='place'>" + placeColor + " " + placeLink + "</li>";
+        var dataCentroid = "data:centroid-lat='" + place.centroid_lat + "' data:centroid-lon='" + place.centroid_lon + "'";
+        var placeLi = "<li class='place' " + dataCentroid + ">" + placeColor + " " + placeLink + "</li>";
         $(placeLi).appendTo(placesList);
       });
       resultsField.html(placesList);
@@ -29,7 +32,8 @@
       var searchUrl = "/places/search?q=" + searchQuery;
 
       $.getJSON(searchUrl, function(data) {
-        if (data.length > 0) {
+        window.console.log(data);
+        if (data && data.length > 0) {
           throttledDelay = 1000;
           updatePlacesList(data);
         } else if (throttledDelay * throttleFactor < 3000) {
@@ -53,4 +57,5 @@
 
     return this;
   };
+  
 })(jQuery);

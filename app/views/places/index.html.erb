@@ -1,15 +1,15 @@
-<article class="row">
+<article class="row" id="places">
 
   <header>
   </header>
 
   <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
     <h2>Find a place</h2>
-    <%= text_field_tag :q, params[:q], :id => 'where_are_you_now_search', :autocomplete => "off" %>
-    <%= place_form.submit 'Search' %>
+    <%= text_field_tag :q, params[:q], :id => 'place_search', :autocomplete => "off" %>
+    <%#= place_form.submit 'Search' %>
   <% end %>
 
-  <div id="where_are_you_now_results">
+  <div id="place_results">
     <ul class="places">
       <% @places.each do |place| %>
         <% content_tag_for :li, place do %>
@@ -21,11 +21,78 @@
       <% end unless @places.blank? %>
     </ul>
   </div>
+  
+  <%= image_tag "home-world-map.png", :size => "912x393", :id => 'world-map' %>
+
+  <div id="marker">&nbsp;</div>
 
 </article>
 
 <% content_for(:footer) do %>
   <%= javascript_include_tag 'places' %>
-  <%= jquery_ready '$("#where_are_you_now_search").searchPlaces()' %>
+  <%= jquery_ready '$("#place_search").searchPlaces()' %>
   <%#= jquery_ready '$("#where_have_you_been_search").searchPlaces()' %>
+
+  <script type="text/javascript">
+
+    var mapLatLon = function(lat, lon) {
+      var mapOffset = $("#world-map").offset();
+      adjLat = (lat * 1) + 450;
+      adjLon = (lon * 1) + 150;
+      return {
+        top: adjLat + mapOffset.top,
+        left: adjLon + mapOffset.left
+      };
+    };
+    
+    var weightedAverage = function(a, b) {
+      a[1] * b[1] - a[0] * b[0]
+    }
+    
+    var sanDiego = [
+      {"place":{"permalink":"United-States/California/San-Diego/2487889",
+      "name":"San Diego","locality1_type":null,
+      "bounding_box_northeast_lon":-116.798203,"admin2_code":null,
+      "woeid":2487889,"uri":"http://where.yahooapis.com/v1/place/2487889",
+      "locality2_type":null,"created_at":"2009-08-31T00:57:33Z","admin3_code":null,
+      "admin1_code":null,"postal":"","place_type_name":"Town","country_code":null,
+      "country":"United States","updated_at":"2009-08-31T00:57:33Z",
+      "long_name":"San Diego, California, United States","admin3_type":null,
+      "admin1_type":null,"centroid_lat":32.715698,
+      "bounding_box_southwest_lat":32.507488,"admin2_type":null,
+      "postal_type":null,"id":18,"country_type":null,"color":"a1edff",
+      "centroid_lon":-117.16172,"bounding_box_southwest_lon":-117.321899,
+      "admin1":"California","locality1":"San Diego","lang":"en-US",
+      "admin2":"San Diego","place_type_id":1,
+      "parent_names":"San Diego, California, United States","locality2":"",
+      "admin3":"","bounding_box_northeast_lat":33.114231}},
+      {"place":{"permalink":"Mexico/Puebla/San-Diego-la-Mesa-Tochimiltzingo/142233","name":"San Diego la Mesa Tochimiltzingo","locality1_type":null,"bounding_box_northeast_lon":-98.310913,"admin2_code":null,"woeid":142233,"uri":"http://where.yahooapis.com/v1/place/142233","locality2_type":null,"created_at":"2009-08-31T00:57:33Z","admin3_code":null,"admin1_code":null,"postal":"743","place_type_name":"Town","country_code":null,"country":"Mexico","updated_at":"2009-08-31T00:57:33Z","long_name":"San Diego la Mesa Tochimiltzingo, Puebla, Mexico","admin3_type":null,"admin1_type":null,"centroid_lat":18.81073,"bounding_box_southwest_lat":18.804029,"admin2_type":null,"postal_type":null,"id":19,"country_type":null,"color":"d7390d","centroid_lon":-98.327873,"bounding_box_southwest_lon":-98.338173,"admin1":"Puebla","locality1":"San Diego la Mesa Tochimiltzingo","lang":"en-US","admin2":"San Diego la Mesa Tochimiltzingo","place_type_id":1,"parent_names":"San Diego la Mesa Tochimiltzingo, Puebla, Mexico","locality2":"","admin3":"","bounding_box_northeast_lat":18.832649}},
+      {"place":{"permalink":"United-States/Texas/Duval/San-Diego/2487940","name":"San Diego","locality1_type":null,"bounding_box_northeast_lon":-98.2285,"admin2_code":null,"woeid":2487940,"uri":"http://where.yahooapis.com/v1/place/2487940","locality2_type":null,"created_at":"2009-08-31T00:57:33Z","admin3_code":null,"admin1_code":null,"postal":"78384","place_type_name":"Town","country_code":null,"country":"United States","updated_at":"2009-08-31T00:57:33Z","long_name":"San Diego, Duval, Texas, United States","admin3_type":null,"admin1_type":null,"centroid_lat":27.76429,"bounding_box_southwest_lat":27.746929,"admin2_type":null,"postal_type":null,"id":20,"country_type":null,"color":"a1edff","centroid_lon":-98.23938,"bounding_box_southwest_lon":-98.249939,"admin1":"Texas","locality1":"San Diego","lang":"en-US","admin2":"Duval","place_type_id":1,"parent_names":"Duval, Texas, United States","locality2":"","admin3":"","bounding_box_northeast_lat":27.773609}},
+      {"place":{"permalink":"Spain/Madrid/San-Diego/20219909","name":"San Diego","locality1_type":null,"bounding_box_northeast_lon":-3.65685,"admin2_code":null,"woeid":20219909,"uri":"http://where.yahooapis.com/v1/place/20219909","locality2_type":null,"created_at":"2009-08-31T00:57:33Z","admin3_code":null,"admin1_code":null,"postal":"28018","place_type_name":"Suburb","country_code":null,"country":"Spain","updated_at":"2009-08-31T00:57:33Z","long_name":"San Diego, Madrid, Spain","admin3_type":null,"admin1_type":null,"centroid_lat":40.387501,"bounding_box_southwest_lat":40.379189,"admin2_type":null,"postal_type":null,"id":21,"country_type":null,"color":"a1edff","centroid_lon":-3.66776,"bounding_box_southwest_lon":-3.67867,"admin1":"Madrid","locality1":"Madrid","lang":"en-US","admin2":"Madrid","place_type_id":2,"parent_names":"Madrid, Spain","locality2":"San Diego","admin3":"","bounding_box_northeast_lat":40.395809}},
+      {"place":{"permalink":"Colombia/Antioquia/Liborina/La-Placita/359723","name":"La Placita","locality1_type":null,"bounding_box_northeast_lon":-75.759628,"admin2_code":null,"woeid":359723,"uri":"http://where.yahooapis.com/v1/place/359723","locality2_type":null,"created_at":"2009-08-31T00:57:33Z","admin3_code":null,"admin1_code":null,"postal":"","place_type_name":"Town","country_code":null,"country":"Colombia","updated_at":"2009-08-31T00:57:33Z","long_name":"La Placita, Liborina, Antioquia, Colombia","admin3_type":null,"admin1_type":null,"centroid_lat":6.75,"bounding_box_southwest_lat":6.74298,"admin2_type":null,"postal_type":null,"id":22,"country_type":null,"color":"0edd0b","centroid_lon":-75.766701,"bounding_box_southwest_lon":-75.773773,"admin1":"Antioquia","locality1":"La Placita","lang":"en-US","admin2":"Liborina","place_type_id":1,"parent_names":"Liborina, Antioquia, Colombia","locality2":"","admin3":"","bounding_box_northeast_lat":6.75702}}
+    ];
+    
+    var london = [
+      {"place":{"permalink":"United-Kingdom/England/Greater-London/London/44418","name":"London","locality1_type":null,"bounding_box_northeast_lon":0.28036,"admin2_code":null,"woeid":44418,"uri":"http://where.yahooapis.com/v1/place/44418","locality2_type":null,"created_at":"2009-09-01T06:43:42Z","admin3_code":null,"admin1_code":null,"postal":"","place_type_name":"Town","country_code":null,"country":"United Kingdom","updated_at":"2009-09-01T06:43:42Z","long_name":"London, Greater London, England, United Kingdom","admin3_type":null,"admin1_type":null,"centroid_lat":51.506321,"bounding_box_southwest_lat":51.261318,"admin2_type":null,"postal_type":null,"id":260,"country_type":null,"color":"59ead8","centroid_lon":-0.12714,"bounding_box_southwest_lon":-0.563,"admin1":"England","locality1":"London","lang":"en-US","admin2":"Greater London","place_type_id":1,"parent_names":"Greater London, England, United Kingdom","locality2":"","admin3":"","bounding_box_northeast_lat":51.686031}},
+      {"place":{"permalink":"Canada/Ontario/Middlesex/London/4063","name":"London","locality1_type":null,"bounding_box_northeast_lon":-81.107582,"admin2_code":null,"woeid":4063,"uri":"http://where.yahooapis.com/v1/place/4063","locality2_type":null,"created_at":"2009-09-01T06:43:42Z","admin3_code":null,"admin1_code":null,"postal":"","place_type_name":"Town","country_code":null,"country":"Canada","updated_at":"2009-09-01T06:43:42Z","long_name":"London, Middlesex, Ontario, Canada","admin3_type":null,"admin1_type":null,"centroid_lat":42.986889,"bounding_box_southwest_lat":42.824558,"admin2_type":null,"postal_type":null,"id":261,"country_type":null,"color":"59ead8","centroid_lon":-81.246208,"bounding_box_southwest_lon":-81.390648,"admin1":"Ontario","locality1":"London","lang":"en-US","admin2":"Middlesex","place_type_id":1,"parent_names":"Middlesex, Ontario, Canada","locality2":"","admin3":"","bounding_box_northeast_lat":43.073051}},
+      {"place":{"permalink":"United-States/Kentucky/Laurel/London/2441293","name":"London","locality1_type":null,"bounding_box_northeast_lon":-84.038658,"admin2_code":null,"woeid":2441293,"uri":"http://where.yahooapis.com/v1/place/2441293","locality2_type":null,"created_at":"2009-09-01T06:43:42Z","admin3_code":null,"admin1_code":null,"postal":"","place_type_name":"Town","country_code":null,"country":"United States","updated_at":"2009-09-01T06:43:42Z","long_name":"London, Laurel, Kentucky, United States","admin3_type":null,"admin1_type":null,"centroid_lat":37.127171,"bounding_box_southwest_lat":37.102821,"admin2_type":null,"postal_type":null,"id":262,"country_type":null,"color":"59ead8","centroid_lon":-84.083771,"bounding_box_southwest_lon":-84.126663,"admin1":"Kentucky","locality1":"London","lang":"en-US","admin2":"Laurel","place_type_id":1,"parent_names":"Laurel, Kentucky, United States","locality2":"","admin3":"","bounding_box_northeast_lat":37.15221}},
+      {"place":{"permalink":"United-States/Texas/Kimble/London/2441291","name":"London","locality1_type":null,"bounding_box_northeast_lon":-99.555527,"admin2_code":null,"woeid":2441291,"uri":"http://where.yahooapis.com/v1/place/2441291","locality2_type":null,"created_at":"2009-09-01T06:43:42Z","admin3_code":null,"admin1_code":null,"postal":"76854","place_type_name":"Town","country_code":null,"country":"United States","updated_at":"2009-09-01T06:43:42Z","long_name":"London, Kimble, Texas, United States","admin3_type":null,"admin1_type":null,"centroid_lat":30.68577,"bounding_box_southwest_lat":30.67775,"admin2_type":null,"postal_type":null,"id":263,"country_type":null,"color":"59ead8","centroid_lon":-99.56485,"bounding_box_southwest_lon":-99.574188,"admin1":"Texas","locality1":"London","lang":"en-US","admin2":"Kimble","place_type_id":1,"parent_names":"Kimble, Texas, United States","locality2":"","admin3":"","bounding_box_northeast_lat":30.6938}},
+      {"place":{"permalink":"United-States/California/Tulare/London/2441279","name":"London","locality1_type":null,"bounding_box_northeast_lon":-119.431328,"admin2_code":null,"woeid":2441279,"uri":"http://where.yahooapis.com/v1/place/2441279","locality2_type":null,"created_at":"2009-09-01T06:43:42Z","admin3_code":null,"admin1_code":null,"postal":"93618","place_type_name":"Town","country_code":null,"country":"United States","updated_at":"2009-09-01T06:43:42Z","long_name":"London, Tulare, California, United States","admin3_type":null,"admin1_type":null,"centroid_lat":36.475281,"bounding_box_southwest_lat":36.46767,"admin2_type":null,"postal_type":null,"id":264,"country_type":null,"color":"59ead8","centroid_lon":-119.43853,"bounding_box_southwest_lon":-119.445732,"admin1":"California","locality1":"London","lang":"en-US","admin2":"Tulare","place_type_id":1,"parent_names":"Tulare, California, United States","locality2":"","admin3":"","bounding_box_northeast_lat":36.482731}}
+    ];
+
+    pos = mapLatLon(0,0);
+    pos = mapLatLon(32.715698, -117.16172)
+    $("#marker").css({
+      position: "absolute",
+      top: pos.top, left: pos.left,
+      width: "5px", height: "5px",
+      "background-color": "red"
+    });
+    
+    // var setPlaceOnMap = function(place) {
+    //   mapLatLon();
+    // }
+    
+  </script>
+  
 <% end %>
