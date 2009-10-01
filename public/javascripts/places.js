@@ -136,11 +136,12 @@ var setPlacesOnMap = function() {
       left: placeLeft,
       top: placeTop,
       overflow: 'visible',
-      width: placeWidth,
+      width: placeWidth, // FIXME: figure out a better way to avoid whitespace line breaks without causing z-index issues
+      'z-index': (110 - i),
       opacity: 0
     };
     $(this).css(placeStyle);
-    $(this).children("span").css('z-index', (110 - i))
+    // $(this).find("span").css('z-index', (110 - i))
     $(this).fadeTo(0.5, 1 - i / 10)
   });
 }
