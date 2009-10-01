@@ -8,6 +8,7 @@
     var resultsField = $("#" + this.attr("id").replace("search", "results"));
 
     var timeout = null;
+    var extraSearchTimeout = null;
     var timeoutDelay = 400;
     var throttledDelay = 1000;
     var throttleFactor = 1.5;
@@ -15,6 +16,8 @@
     var searchInProgress = false;
 
     var updatePlacesList = function(data) {
+      window.console.log("Updating places...");
+      $(".place").fadeOut(0.5)
       var placesList = $("<ul class='places'></ul>");
       $.each(data, function(i, item) {
         var place = item.place;
@@ -27,6 +30,8 @@
       });
       resultsField.html(placesList);
       if (callback) { callback(); }
+      window.console.log("Search has finished!");
+      searchInProgress = false;
     };
 
     var performSearch = function() {
@@ -34,29 +39,38 @@
       var searchUrl = "/places/search?q=" + searchQuery;
 
       if (searchQuery && searchQuery != "") {
-        // resultsField.html("<div class='indicator'>Please wait&hellip;</div>");
 
         $.getJSON(searchUrl, function(data) {
           if (data && data.length > 0) {
             throttledDelay = 1000;
             updatePlacesList(data);
           } else if (throttledDelay * throttleFactor < 3000) {
+            window.console.log("Search has finished!");
+            searchInProgress = false;
             throttledDelay = throttledDelay * throttleFactor;
             triggerSearch(throttledDelay);
           } else {
+            window.console.log("Search has finished!");
+            searchInProgress = false;
             throttledDelay = 1000;
             resultsField.html("<div class='indicator'>No results found.</div>");
           }
         });
       } else {
-        // resultsField.html("<div class='indicator'></div>");
+        resultsField.html("<div class='indicator'></div>");
       }
     };
 
     var triggerSearch = function(extraTimeoutDelay) {
-      if (searchInProgress)
+      if (searchInProgress) {
+        clearTimeout(extraSearchTimeout);
+        extraSearchTimeout = setTimeout(triggerSearch, extraTimeoutDelay ? extraTimeoutDelay : timeoutDelay);
+      } else {
+        window.console.log("Search in progress...");
+        searchInProgress = true;
         clearTimeout(timeout);
-      timeout = setTimeout(performSearch, extraTimeoutDelay ? extraTimeoutDelay : timeoutDelay);
+        timeout = setTimeout(performSearch, extraTimeoutDelay ? extraTimeoutDelay : timeoutDelay);
+      }
     };
 
     $(searchField).bind("keypress", function(e) {
@@ -117,9 +131,9 @@ var setPlacesOnMap = function() {
   $(".place").each(function(i){
     var coords = latLonToXY($(this).attr('data:centroid-lat'), $(this).attr('data:centroid-lon'));
     var offset = $("#world-map").offset();
-    var placeLeft = coords[0] + offset.left;
-    var placeTop = coords[1] + offset.top;
     var placeWidth = $(this).css("width");
+    var placeLeft = coords[0] + offset.left - 30;
+    var placeTop = coords[1] + offset.top - 30;
     var placeStyle = {
       position: 'absolute',
       left: placeLeft,
@@ -127,8 +141,9 @@ var setPlacesOnMap = function() {
       overflow: 'visible',
       width: placeWidth,
       'z-index': (110 - i),
-      opacity: (1 - i / 10)
+      opacity: 0
     };
     $(this).css(placeStyle);
+    $(this).fadeTo(0.5, 1 - i / 10)
   });
 }
