@@ -1,0 +1,80 @@
+body {
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: Helvetica;
+}
+
+h1 {
+  font-size: 1.875em;
+  line-height: 1.3333;
+  margin: 0.6667em 0;
+}
+
+h2 {
+  font-size: 1.25em;
+  line-height: 1;
+  margin: 1em 0;
+}
+
+h3 {
+  font-size: 1.1em;
+  line-height: 1.1363;
+  margin: 1.1363em 0;
+}
+
+li {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.25;
+  margin: 1.25em 0;
+}
+
+.place .color_stamp {
+  height: 1em;
+  width: 1.33em;
+}
+
+
+/* COLORS AND IMAGES */
+
+body, html {
+  background: #cff;
+}
+
+body {
+  width: 960px;
+  margin: auto;
+}
+
+article#places {
+}
+
+#places #place_search {
+  border: 1px solid white;
+  font-size: 1.1em;
+  line-height: 1.1363;
+  padding: 0.284075em;
+  background: #fff;
+}
+
+#place_results {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#place_results li {
+  font-size: 1em;
+  line-height: 1.25;
+  list-style-type: none;
+  margin: 1.25em 0;
+  overflow: visible;
+}
+#place_results li > span {
+  background: #fff;
+  padding: 0.625em;
+  overflow: normal;
+}
