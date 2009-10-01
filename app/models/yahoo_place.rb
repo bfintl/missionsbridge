@@ -14,7 +14,7 @@ module YahooPlace
   module ClassMethods
 
     def yahoo_search(query='')
-      search_url = %(http://where.yahooapis.com/v1/places.q('#{CGI::escape(query||"")}');count=5?format=json&appid=#{YAHOO['appid']||''})
+      search_url = %(http://where.yahooapis.com/v1/places.q('#{CGI::escape(query||"")}');count=10?format=json&appid=#{YAHOO['appid']||''})
       json = ActiveSupport::JSON.decode(open(search_url).read)
       json['places']['place'].collect do |place_json|
         Place.find_or_create_from_json(place_json)
