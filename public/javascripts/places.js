@@ -142,6 +142,6 @@ var setPlacesOnMap = function() {
     };
     $(this).css(placeStyle);
     // $(this).find("span").css('z-index', (110 - i))
-    $(this).fadeTo(0.5, 1 - i / 10)
+    $(this).fadeTo(0.5, 1 - i / 20)
   });
 }
