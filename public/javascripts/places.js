@@ -12,6 +12,7 @@
     var throttledDelay = 1000;
     var throttleFactor = 1.5;
     var callback = options.callback;
+    var searchInProgress = false;
 
     var updatePlacesList = function(data) {
       var placesList = $("<ul class='places'></ul>");
@@ -33,7 +34,7 @@
       var searchUrl = "/places/search?q=" + searchQuery;
 
       if (searchQuery && searchQuery != "") {
-        resultsField.html("<div class='indicator'>Please wait&hellip;</div>");
+        // resultsField.html("<div class='indicator'>Please wait&hellip;</div>");
 
         $.getJSON(searchUrl, function(data) {
           if (data && data.length > 0) {
@@ -48,12 +49,13 @@
           }
         });
       } else {
-        resultsField.html("<div class='indicator'></div>");
+        // resultsField.html("<div class='indicator'></div>");
       }
     };
 
     var triggerSearch = function(extraTimeoutDelay) {
-      clearTimeout(timeout);
+      if (searchInProgress)
+        clearTimeout(timeout);
       timeout = setTimeout(performSearch, extraTimeoutDelay ? extraTimeoutDelay : timeoutDelay);
     };
 
@@ -72,7 +74,6 @@ var sampleXArray = new Array();
 var sampleYArray = new Array();
 
 var pushSampleCoord = function(lat, lon, x, y) {
-  window.console.log([lat, lon] + " => " + [x, y]);
   sampleLatArray.push(lat);
   sampleLonArray.push(lon);
   sampleXArray.push(x);
@@ -82,7 +83,7 @@ var pushSampleCoord = function(lat, lon, x, y) {
 var calculateWeights = function(a, samples) {
   var weights = new Array();
   for (var i = 0; i < samples.length; i++) {
-    weights[i] = 1.0 / Math.abs(a - samples[i])
+    weights[i] = 1.0 / Math.pow(Math.abs(a - samples[i]), 5);
   }
   return weights;
 };
@@ -121,11 +122,13 @@ var setPlacesOnMap = function() {
     var placeWidth = $(this).css("width");
     var placeStyle = {
       position: 'absolute',
-      left: placeLeft, top: placeTop,
+      left: placeLeft,
+      top: placeTop,
       overflow: 'visible',
-      width: placeWidth
+      width: placeWidth,
+      'z-index': (110 - i),
+      opacity: (1 - i / 10)
     };
-    window.console.log([placeLeft, placeTop]);
     $(this).css(placeStyle);
   });
 }
