@@ -30,16 +30,27 @@
 
 <% content_for(:footer) do %>
   <%= javascript_include_tag 'places' %>
-  <%= jquery_ready '$("#place_search").searchPlaces()' %>
+  <%= jquery_ready '$("#place_search").searchPlaces({callback:setPlacesOnMap})' %>
   <%#= jquery_ready '$("#where_have_you_been_search").searchPlaces()' %>
 
   <script type="text/javascript">
   
-    pushSampleCoord( 0.000000,    0.00000, 450, 240);
-    pushSampleCoord(32.715698, -117.16172, 203, 315);
-    pushSampleCoord(51.506321,   -0.12714, 450, 102);
-    pushSampleCoord(65.658300,  -168.3984,  18,  65);
-    pushSampleCoord(51.027600,   156.8408, 848, 109);
+    pushSampleCoord(  0.000000,    0.00000, 450, 240);
+    pushSampleCoord( 32.715698, -117.16172, 203, 315); // san diego (roughly)
+    pushSampleCoord( 51.506321,   -0.12714, 450, 102); // london
+    pushSampleCoord( 65.658300,  -168.3984,  18,  65); // western alaska
+    pushSampleCoord( 51.027600,   156.8408, 848, 109); // southern kamchatka
+    pushSampleCoord(  8.146200,    77.4316, 648, 222); // southern india
+    pushSampleCoord(-34.741600,    19.8633, 501, 336); // southern africa
+    pushSampleCoord(-55.578300,   -68.5547, 272, 392); // southern south america
+    pushSampleCoord(-34.452200,   172.7930, 894, 336); // northern new zealand
+    
+    window.console.log("Testing lat/lon translation...");
+    window.console.log("latLonToXY( 0.01,    0.01) => " + latLonToXY( 0.01,    0.001));
+    window.console.log("latLonToXY(32.71, -117.11) => " + latLonToXY(32.71, -117.161));
+    window.console.log("latLonToXY(51.51,   -0.11) => " + latLonToXY(51.51,   -0.121));
+    window.console.log("latLonToXY(65.61,  -168.1) => " + latLonToXY(65.61,  -168.31));
+    window.console.log("latLonToXY(51.01,   156.1) => " + latLonToXY(51.01,   156.81));
     
   </script>
   
