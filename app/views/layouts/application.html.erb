@@ -7,23 +7,6 @@
     <%= yield(:head) %>
   </head>
   <body>
-    <header class="row">
-      <div class="column grid_6">
-        <h1>
-          <strong><%= link_to 'Missions Bridge', '/' %></strong>
-          <!-- knows <strong><%= link_to pluralize(Person.count, "person"), people_path %></strong>
-          and <strong><%= link_to pluralize(0, "organization"), '#' %></strong>
-          in <strong><%= link_to pluralize(Place.count, "place"), places_path %></strong> and counting&hellip; -->
-        </h1>
-      </div>
-      <div class="column grid_6">
-        <!-- <h2>
-          <strong><%= link_to "You", current_person ? person_path(current_person) : new_person_path %></strong>
-          know <strong><%= link_to pluralize(0, "person"), people_path %></strong>
-          in <strong><%= link_to pluralize(0, "place"), places_path %></strong>&hellip;
-        </h2> -->
-      </div>
-    </header>
     <%= yield %>
     <aside>
       <%= yield(:aside) %>

@@ -24,6 +24,7 @@
         var placeName = "<span class='name'>" + place.long_name + "</span>";
         var placeColor = "<span style='background-color:#" + place.color + "'>&nbsp;</span>";
         var placeLink = "<a href='/places/" + place.permalink + "'>" +  placeName + "</a>";
+        /* TMP: */ placeLink = placeName;
         var dataCentroid = "data:centroid-lat='" + place.centroid_lat + "' data:centroid-lon='" + place.centroid_lon + "'";
         var placeLi = "<li class='place' " + dataCentroid + "><span>" + placeColor + " " + placeLink + "</span></li>";
         $(placeLi).appendTo(placesList);

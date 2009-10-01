@@ -1,26 +1,32 @@
-<article class="row" id="places">
+<article id="places">
+  <header class="row">
 
-  <header>
+    <div class="column grid_6">
+      <h1><%= link_to image_tag("missionsbridge.png", :alt => "MissionsBridge"), '/' %></h1>
+    </div>
+    
+    <div class="column grid_y">
+      <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get, :style => 'margin-top: 40px' } do |place_form| %>
+        <%= image_tag "search.png", :align => 'left' %>
+        <%= text_field_tag :q, params[:q], :id => 'place_search', :autocomplete => "off" %>
+        <%#= place_form.submit 'Search' %>
+      <% end %>
+    </div>
+    
+    <div id="place_results">
+      <ul class="places">
+        <% @places.each do |place| %>
+          <% content_tag_for :li, place do %>
+            <span style="background:#<%= place.color %>">&nbsp;</span>
+            <% link_to "/places/#{place.to_param}" do %>
+              <span class="long_name"><%= place.long_name %></span>
+            <% end %>
+          <% end %>
+        <% end unless @places.blank? %>
+      </ul>
+    </div>
   </header>
 
-  <% form_for :place, :url => { :action => 'search' }, :html => { :method => :get } do |place_form| %>
-    <h2>Find a place</h2>
-    <%= text_field_tag :q, params[:q], :id => 'place_search', :autocomplete => "off" %>
-    <%#= place_form.submit 'Search' %>
-  <% end %>
-
-  <div id="place_results">
-    <ul class="places">
-      <% @places.each do |place| %>
-        <% content_tag_for :li, place do %>
-          <span style="background:#<%= place.color %>">&nbsp;</span>
-          <% link_to "/places/#{place.to_param}" do %>
-            <span class="long_name"><%= place.long_name %></span>
-          <% end %>
-        <% end %>
-      <% end unless @places.blank? %>
-    </ul>
-  </div>
   
   <%= image_tag "home-world-map.png", :size => "912x393", :id => 'world-map' %>
 
